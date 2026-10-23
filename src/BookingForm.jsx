@@ -7,7 +7,12 @@ import {
   validateBookingForm,
 } from './utils/validation'
 
-const getTodayDate = () => new Date().toISOString().split('T')[0]
+export const getTodayDate = (now = new Date()) => {
+  const yyyy = now.getFullYear()
+  const mm = String(now.getMonth() + 1).padStart(2, '0')
+  const dd = String(now.getDate()).padStart(2, '0')
+  return `${yyyy}-${mm}-${dd}`
+}
 const DEFAULT_TIMES = ['17:00', '18:00', '19:00', '20:00', '21:00', '22:00']
 
 function BookingForm({ availableTimes = DEFAULT_TIMES, dispatch, submitForm }) {
@@ -16,6 +21,7 @@ function BookingForm({ availableTimes = DEFAULT_TIMES, dispatch, submitForm }) {
   const [selectedTime, setSelectedTime] = useState('')
   const [guests, setGuests] = useState(1)
   const [occasion, setOccasion] = useState('Birthday')
+  const [submitError, setSubmitError] = useState(false)
 
   const [touched, setTouched] = useState({
     date: false,
@@ -66,7 +72,7 @@ function BookingForm({ availableTimes = DEFAULT_TIMES, dispatch, submitForm }) {
       occasion,
     }
     if (submitForm) {
-      submitForm(reservationData)
+      setSubmitError(submitForm(reservationData) === false)
     }
   }
 
@@ -164,6 +170,12 @@ function BookingForm({ availableTimes = DEFAULT_TIMES, dispatch, submitForm }) {
       {touched.occasion && !isOccasionValid && (
         <span id="occasion-error" className="error-message" role="alert">
           Please choose an occasion for your reservation.
+        </span>
+      )}
+
+      {submitError && (
+        <span className="error-message" role="alert">
+          Sorry, we couldn't complete your reservation. Please try again or call us at (312) 555-0199.
         </span>
       )}
 

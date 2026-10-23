@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import BookingForm from './BookingForm'
+import BookingForm, { getTodayDate } from './BookingForm'
 import {
   validateDate,
   validateTime,
@@ -195,5 +195,21 @@ describe('BookingForm - Accessibility (ARIA & Form Labels)', () => {
 
     expect(guestsInput).toHaveAttribute('aria-invalid', 'true')
     expect(guestsInput).toHaveAttribute('aria-describedby', 'guests-error')
+  })
+})
+
+describe('BookingForm - Date & Submission Edge Cases', () => {
+  test('getTodayDate() uses the local calendar date, not UTC', () => {
+    expect(getTodayDate(new Date(2026, 9, 23, 23, 30))).toBe('2026-10-23')
+    expect(getTodayDate(new Date(2026, 0, 5, 0, 15))).toBe('2026-01-05')
+  })
+
+  test('Shows an error alert when submitForm reports failure', () => {
+    const mockSubmit = vi.fn(() => false)
+    render(<BookingForm submitForm={mockSubmit} />)
+
+    fireEvent.click(screen.getByDisplayValue('Make Your reservation'))
+
+    expect(screen.getByRole('alert')).toHaveTextContent(/couldn't complete your reservation/i)
   })
 })
