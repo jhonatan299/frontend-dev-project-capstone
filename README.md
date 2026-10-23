@@ -1,16 +1,31 @@
-# React + Vite
+# Little Lemon
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A website for Little Lemon, a Mediterranean restaurant in Chicago. Visitors can see the menu specials and book a table online.
 
-Currently, two official plugins are available:
+This is my capstone project for the Meta Front-End Developer course.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## What it does
 
-## React Compiler
+- Shows the restaurant's specials, reviews, and story
+- Lets you book a table by picking a date, time, number of guests, and occasion
+- Checks the form and shows errors if something is wrong
+- Shows a confirmation page after booking
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## How to run it
 
-## Expanding the Oxlint configuration
+```bash
+npm install
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+Then open http://localhost:5173 in your browser.
+
+To run the tests:
+
+```bash
+npm test
+```
+
+## Built with
+
+React, React Router, Vite, and Vitest.
