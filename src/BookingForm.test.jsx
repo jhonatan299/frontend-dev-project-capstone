@@ -204,6 +204,15 @@ describe('BookingForm - Date & Submission Edge Cases', () => {
     expect(getTodayDate(new Date(2026, 0, 5, 0, 15))).toBe('2026-01-05')
   })
 
+  test('Refreshes available times for today when the form mounts', () => {
+    const mockDispatch = vi.fn()
+    render(<BookingForm dispatch={mockDispatch} />)
+
+    expect(mockDispatch).toHaveBeenCalledWith(
+      expect.objectContaining({ type: 'UPDATE_TIMES', date: getTodayDate() })
+    )
+  })
+
   test('Shows an error alert when submitForm reports failure', () => {
     const mockSubmit = vi.fn(() => false)
     render(<BookingForm submitForm={mockSubmit} />)

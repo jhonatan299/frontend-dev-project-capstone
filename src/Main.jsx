@@ -1,5 +1,5 @@
 import { useReducer } from 'react'
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import HomePage from './HomePage'
 import BookingPage from './BookingPage'
 import ConfirmedBooking from './ConfirmedBooking'
@@ -37,6 +37,7 @@ function Main() {
         />
         <Route path="/confirmed" element={<ConfirmedBooking />} />
         <Route path="/booking-confirmed" element={<ConfirmedBooking />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </main>
   )

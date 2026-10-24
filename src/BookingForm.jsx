@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   validateDate,
   validateTime,
@@ -45,6 +45,13 @@ function BookingForm({ availableTimes = DEFAULT_TIMES, dispatch, submitForm }) {
     guests,
     occasion,
   })
+
+  useEffect(() => {
+    if (dispatch) {
+      const today = getTodayDate()
+      dispatch({ type: 'UPDATE_TIMES', payload: today, date: today })
+    }
+  }, [dispatch])
 
   const handleBlur = (field) => {
     setTouched((prev) => ({ ...prev, [field]: true }))
